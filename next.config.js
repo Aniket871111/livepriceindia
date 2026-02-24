@@ -12,10 +12,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // ISR configuration
-  experimental: {
-    optimizeCss: true,
-  },
   // Environment variables
   env: {
     SITE_NAME: 'LivePriceIndia',

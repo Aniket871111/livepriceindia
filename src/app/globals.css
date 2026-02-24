@@ -32,11 +32,11 @@ body {
   }
   
   * {
-    @apply border-border;
+    border-color: theme('colors.slate.200');
   }
   
   body {
-    @apply bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50;
+    @apply bg-white text-slate-900;
   }
 }
 

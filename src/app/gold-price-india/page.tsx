@@ -119,8 +119,8 @@ export default function GoldPricePage() {
             <div className="bg-white rounded-xl shadow p-6 border border-slate-200">
               <h3 className="font-bold text-lg mb-2">🔔 Get Free Alerts</h3>
               <p className="text-slate-600 text-sm mb-4">Get notified when gold price drops below your target</p>
-              <Link href="/alerts" className="btn-primary text-sm inline-flex items-center gap-1">
-                Set Gold Alert <ArrowRight className="w-4 h-4" />
+              <Link href="/contact" className="btn-primary text-sm inline-flex items-center gap-1">
+                Contact for Alerts <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

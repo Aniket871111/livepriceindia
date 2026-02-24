@@ -151,34 +151,30 @@ export default function DashboardCards() {
             </Link>
           ))}
 
-          {/* Premium Card */}
-          <Link
-            href="/premium"
-            className="price-card bg-gradient-to-br from-primary-600 to-primary-700 text-white border-none relative overflow-hidden group"
-          >
-            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+          {/* Free Newsletter Card */}
+          <div className="price-card bg-gradient-to-br from-green-600 to-emerald-700 text-white border-none relative overflow-hidden">
             <div className="relative z-10">
               <div className="mb-4">
                 <div className="inline-block bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-3">
-                  Premium
+                  100% Free
                 </div>
                 <h3 className="font-semibold text-2xl mb-2">
-                  Unlock All Features
+                  Daily Price Updates
                 </h3>
-                <p className="text-primary-100 text-sm">
-                  Ad-free experience, unlimited alerts, advanced charts & more
+                <p className="text-white text-sm">
+                  Get gold, petrol, crypto prices in your email every morning
                 </p>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-3xl font-bold mb-1">₹99/mo</div>
-                  <div className="text-sm text-primary-100">or ₹999/year</div>
+                  <div className="text-2xl font-bold mb-1">Subscribe Free</div>
+                  <div className="text-sm text-white">No credit card needed</div>
                 </div>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-6 h-6" />
               </div>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </section>

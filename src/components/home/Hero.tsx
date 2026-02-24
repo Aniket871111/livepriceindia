@@ -39,11 +39,11 @@ export default function Hero() {
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/alerts"
+              href="/contact"
               className="btn-secondary flex items-center gap-2 text-lg px-8 py-3 w-full sm:w-auto justify-center"
             >
               <Bell className="w-5 h-5" />
-              Set Price Alerts
+              Contact Us
             </Link>
           </div>
 

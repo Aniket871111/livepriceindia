@@ -13,7 +13,7 @@ export default function Header() {
     { href: '/nifty-live', label: 'Nifty' },
     { href: '/crypto-prices-inr', label: 'Crypto' },
     { href: '/flight-prices', label: 'Flights' },
-    { href: '/blog', label: 'Blog' },
+    { href: '/about', label: 'About' },
   ]
 
   return (
@@ -64,10 +64,10 @@ export default function Header() {
             </button>
 
             <Link
-              href="/premium"
+              href="/contact"
               className="hidden md:inline-flex btn-primary text-sm"
             >
-              Get Premium
+              Contact Us
             </Link>
 
             {/* Mobile Menu Button */}

@@ -90,8 +90,8 @@ export default function PetrolPricePage() {
           <div className="bg-white rounded-xl shadow p-6 border border-slate-200">
             <h3 className="font-bold text-lg mb-2">🔔 Price Drop Alert</h3>
             <p className="text-slate-600 text-sm mb-3">Get notified when petrol price changes in your city</p>
-            <Link href="/alerts" className="btn-primary text-sm inline-flex items-center gap-1">
-              Set Alert <ArrowRight className="w-4 h-4" />
+            <Link href="/contact" className="btn-primary text-sm inline-flex items-center gap-1">
+              Contact for Alerts <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

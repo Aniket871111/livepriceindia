@@ -17,15 +17,16 @@ export default function Hero() {
 
           {/* Main Heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-primary-600 to-slate-900 dark:from-white dark:via-primary-400 dark:to-white bg-clip-text text-transparent animate-slide-up">
-            Track Live Prices Across India
+            Gold Rate Today, Petrol Price & Nifty Live — Track All Prices in India
           </h1>
 
           {/* Subheading */}
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto animate-slide-up">
-            Real-time <span className="font-semibold text-gold-600">Gold & Silver</span>, 
-            <span className="font-semibold text-orange-600"> Petrol & Diesel</span>, 
-            <span className="font-semibold text-primary-600"> Nifty & Crypto</span>, and 
-            <span className="font-semibold text-purple-600"> Flight Prices</span> — all in one place
+            Free real-time <span className="font-semibold text-gold-600">Gold & Silver rates</span>, 
+            <span className="font-semibold text-orange-600"> Petrol & Diesel prices</span>, 
+            <span className="font-semibold text-primary-600"> Nifty 50 & Bank Nifty</span>, 
+            <span className="font-semibold text-purple-600"> Crypto prices in INR</span> &amp; 
+            <span className="font-semibold text-blue-600"> cheapest flights</span> — updated every minute for 8+ Indian cities
           </p>
 
           {/* CTA Buttons */}

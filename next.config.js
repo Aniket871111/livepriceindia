@@ -15,7 +15,7 @@ const nextConfig = {
   // Environment variables
   env: {
     SITE_NAME: 'LivePriceIndia',
-    SITE_URL: process.env.SITE_URL || 'https://livepriceindia.com',
+    SITE_URL: process.env.SITE_URL || 'https://livepriceindia.vercel.app',
   },
 }
 

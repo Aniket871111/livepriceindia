@@ -8,21 +8,27 @@ import Footer from '@/components/layout/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'https://livepriceindia.com'),
+  metadataBase: new URL(process.env.SITE_URL || 'https://livepriceindia.vercel.app'),
   title: {
-    default: 'Live Gold, Petrol, Crypto & Flight Prices India | LivePriceIndia',
+    default: 'Gold Rate Today, Petrol Price, Nifty Live, Crypto INR & Flight Tracker | LivePriceIndia',
     template: '%s | LivePriceIndia'
   },
-  description: 'Real-time gold rates, petrol prices, Nifty levels, crypto prices & flight fare tracker for Pune, Mumbai, Delhi. Updated every minute. Free alerts!',
+  description: 'Check today\'s gold rate in Pune, Mumbai & Delhi. Live petrol price, Nifty 50 chart, Bitcoin price in INR & cheap flight tracker. Updated every minute. 100% free alerts!',
   keywords: [
-    'gold price today',
-    'petrol price india',
-    'nifty live',
-    'crypto prices inr',
-    'flight price tracker',
-    'gold rate pune',
-    'bank nifty live',
-    'bitcoin price inr'
+    'gold rate today pune',
+    'gold price today mumbai',
+    'petrol price today india',
+    'diesel price today',
+    'nifty 50 live chart',
+    'bank nifty live today',
+    'bitcoin price in inr',
+    'crypto prices india',
+    'silver rate today',
+    'cheapest flights from pune',
+    'gold rate today delhi',
+    'petrol price pune today',
+    'ethereum price inr',
+    'flight price tracker india'
   ],
   authors: [{ name: 'LivePriceIndia' }],
   creator: 'LivePriceIndia',
@@ -30,9 +36,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://livepriceindia.com',
-    title: 'Live Gold, Petrol, Crypto & Flight Prices India',
-    description: 'Real-time financial prices for India. Track gold, silver, petrol, Nifty, crypto & flight prices.',
+    url: 'https://livepriceindia.vercel.app',
+    title: 'Gold Rate Today, Petrol Price, Nifty Live, Crypto INR | LivePriceIndia',
+    description: 'Check today gold rate, petrol price, Nifty 50 live chart, Bitcoin INR price & cheapest flights from Pune, Mumbai, Delhi. Free alerts!',
     siteName: 'LivePriceIndia',
     images: [
       {

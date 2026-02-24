@@ -74,6 +74,9 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
+  verification: {
+    google: 'googlee29e8d7fc27c5500',
+  },
 }
 
 export default function RootLayout({
@@ -83,16 +86,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="google-site-verification" content="googlee29e8d7fc27c5500" />
+      <body className={inter.className}>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9858531287299681"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-      </head>
-      <body className={inter.className}>
         <Providers>
           <div className="flex flex-col min-h-screen">
             <Header />

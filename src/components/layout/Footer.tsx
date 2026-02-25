@@ -1,8 +1,13 @@
+'use client'
+
 import Link from 'next/link'
+import { useState } from 'react'
 import { TrendingUp, Twitter, Facebook, Instagram, Youtube, Mail } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
 
   const footerLinks = {
     'Quick Links': [
@@ -45,15 +50,32 @@ export default function Footer() {
             <p className="text-slate-400 mb-6">
               Subscribe to receive gold, petrol, crypto & stock prices in your inbox every morning
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
-              />
-              <button type="submit" className="btn-primary whitespace-nowrap">
-                Subscribe Free
-              </button>
+            <form
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              onSubmit={(e) => {
+                e.preventDefault()
+                if (email) setSubscribed(true)
+              }}
+            >
+              {subscribed ? (
+                <p className="text-green-400 font-medium py-3">✓ Thanks! You&apos;ll receive daily price updates soon.</p>
+              ) : (
+                <>
+                  <label htmlFor="footer-email" className="sr-only">Email address</label>
+                  <input
+                    id="footer-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                    className="flex-1 px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                  />
+                  <button type="submit" className="btn-primary whitespace-nowrap">
+                    Subscribe Free
+                  </button>
+                </>
+              )}
             </form>
           </div>
         </div>
@@ -77,16 +99,16 @@ export default function Footer() {
               Real-time financial prices for India. Track gold, petrol, crypto, stocks & flight prices.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
+              <a href="https://twitter.com/livepriceindia" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors" aria-label="Follow us on Twitter">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
+              <a href="https://facebook.com/livepriceindia" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors" aria-label="Follow us on Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
+              <a href="https://instagram.com/livepriceindia" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors" aria-label="Follow us on Instagram">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors">
+              <a href="https://youtube.com/@livepriceindia" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors" aria-label="Subscribe on YouTube">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>

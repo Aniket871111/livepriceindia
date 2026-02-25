@@ -170,7 +170,7 @@ export default function DashboardCards() {
               <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-slate-600 dark:text-slate-400">
-                    Free daily alerts
+                    Updated live
                   </span>
                   <span className="text-primary-600 hover:text-primary-700 font-medium">
                     View Details →
@@ -215,8 +215,8 @@ const defaultCards: DashboardCard[] = [
     title: 'Gold & Silver',
     icon: Coins,
     href: '/gold-price-india',
-    value: '₹74,500',
-    change: 0.8,
+    value: 'Loading…',
+    change: 0,
     subtitle: '24K Gold / 10g',
     color: 'text-gold-600',
     bgColor: 'bg-gold-50 dark:bg-gold-900/10',
@@ -225,7 +225,7 @@ const defaultCards: DashboardCard[] = [
     title: 'Petrol & Diesel',
     icon: Fuel,
     href: '/petrol-price-india',
-    value: '₹106.31',
+    value: 'Check live',
     change: 0,
     subtitle: 'Petrol / Litre (Pune)',
     color: 'text-orange-600',
@@ -235,8 +235,8 @@ const defaultCards: DashboardCard[] = [
     title: 'Nifty & Bank Nifty',
     icon: TrendingUp,
     href: '/nifty-live',
-    value: '23,800',
-    change: 0.42,
+    value: 'Loading…',
+    change: 0,
     subtitle: 'Nifty 50',
     color: 'text-primary-600',
     bgColor: 'bg-primary-50 dark:bg-primary-900/10',
@@ -245,8 +245,8 @@ const defaultCards: DashboardCard[] = [
     title: 'Crypto Prices',
     icon: Bitcoin,
     href: '/crypto-prices-inr',
-    value: '₹78.5 L',
-    change: 1.2,
+    value: 'Loading…',
+    change: 0,
     subtitle: 'Bitcoin in INR',
     color: 'text-purple-600',
     bgColor: 'bg-purple-50 dark:bg-purple-900/10',
@@ -255,9 +255,9 @@ const defaultCards: DashboardCard[] = [
     title: 'Flight Tracker',
     icon: Plane,
     href: '/flight-prices',
-    value: '₹3,450',
-    change: -8.5,
-    subtitle: 'Pune → Goa',
+    value: 'Check routes',
+    change: 0,
+    subtitle: 'Pune → Goa & more',
     color: 'text-blue-600',
     bgColor: 'bg-blue-50 dark:bg-blue-900/10',
   },

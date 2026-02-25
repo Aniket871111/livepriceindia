@@ -61,7 +61,6 @@ export default function Header() {
               aria-label="Notifications"
             >
               <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-danger-500 rounded-full"></span>
             </button>
 
             <Link
@@ -76,6 +75,7 @@ export default function Header() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -101,11 +101,11 @@ export default function Header() {
                 </Link>
               ))}
               <Link
-                href="/premium"
+                href="/contact"
                 onClick={() => setIsMenuOpen(false)}
                 className="btn-primary text-center mt-2"
               >
-                Get Premium
+                Contact Us
               </Link>
             </div>
           </div>

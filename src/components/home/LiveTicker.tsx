@@ -24,10 +24,11 @@ export default function LiveTicker() {
 
   const fetchAllPrices = useCallback(async () => {
     try {
-      const [goldRes, niftyRes, cryptoRes] = await Promise.allSettled([
+      const [goldRes, niftyRes, cryptoRes, bnRes] = await Promise.allSettled([
         fetch('/api/gold?city=pune'),
         fetch('/api/nifty'),
         fetch('/api/crypto?limit=5'),
+        fetch('/api/nifty?index=banknifty'),
       ])
 
       const items: TickerItem[] = []
@@ -41,22 +42,16 @@ export default function LiveTicker() {
         )
       }
 
-      // Petrol (static but from API)
-      items.push({ label: 'Petrol', value: '₹106.31', change: 0, city: 'Pune' })
-
       // Nifty
       if (niftyRes.status === 'fulfilled' && niftyRes.value.ok) {
         const nifty = await niftyRes.value.json()
         items.push({ label: 'Nifty 50', value: nifty.price?.toLocaleString('en-IN') || '—', change: nifty.change || 0 })
+      }
 
-        // Fetch Bank Nifty too
-        try {
-          const bnRes = await fetch('/api/nifty?index=banknifty')
-          if (bnRes.ok) {
-            const bn = await bnRes.json()
-            items.push({ label: 'Bank Nifty', value: bn.price?.toLocaleString('en-IN') || '—', change: bn.change || 0 })
-          }
-        } catch { /* skip */ }
+      // Bank Nifty (fetched in parallel)
+      if (bnRes.status === 'fulfilled' && bnRes.value.ok) {
+        const bn = await bnRes.value.json()
+        items.push({ label: 'Bank Nifty', value: bn.price?.toLocaleString('en-IN') || '—', change: bn.change || 0 })
       }
 
       // Crypto

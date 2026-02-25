@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Cryptocurrency Prices in INR - Bitcoin, Ethereum & Top 15 Live',
   description: 'Live cryptocurrency prices in Indian Rupees (INR). Bitcoin, Ethereum + top 15 coins with 24h change. Updated every 60 seconds via CoinGecko.',
   keywords: ['bitcoin price inr', 'cryptocurrency prices india', 'ethereum to inr', 'crypto prices inr live', 'bitcoin rate in indian rupees', 'best crypto to buy india'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/crypto-prices-inr' },
 }
 
 export const revalidate = 60

@@ -30,7 +30,7 @@ const faqSchema = {
       name: 'What is today\'s gold rate in Pune?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Today\'s 24K gold rate in Pune is approximately ₹63,450 per 10 grams and 22K gold rate is ₹58,250 per 10 grams. Prices are updated every 5 minutes on LivePriceIndia.',
+        text: 'You can check today\'s live 24K and 22K gold rate in Pune on LivePriceIndia. Prices are sourced from live markets and updated every 5 minutes.',
       },
     },
     {
@@ -38,7 +38,7 @@ const faqSchema = {
       name: 'What is today\'s petrol price in Mumbai?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Today\'s petrol price in Mumbai is approximately ₹111.35 per litre and diesel price is ₹97.28 per litre. Fuel prices are updated daily at 6 AM.',
+        text: 'Today\'s petrol and diesel prices in Mumbai are available on LivePriceIndia. Fuel prices in India are revised daily at 6 AM by oil marketing companies.',
       },
     },
     {
@@ -54,7 +54,7 @@ const faqSchema = {
       name: 'What is Bitcoin price in INR today?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The current Bitcoin price in INR is approximately ₹42,50,000. LivePriceIndia tracks top 20 cryptocurrency prices in Indian Rupees with 30-second updates.',
+        text: 'Check the live Bitcoin price in Indian Rupees on LivePriceIndia. We track top 15 cryptocurrency prices in INR with 30-second updates.',
       },
     },
     {
@@ -151,10 +151,10 @@ function PopularCities() {
 /* FAQ Section — Matches JSON-LD FAQ Schema */
 function FAQSection() {
   const faqs = [
-    { q: 'What is today\'s gold rate in Pune?', a: 'Today\'s 24K gold rate in Pune is approximately ₹63,450 per 10 grams and 22K gold rate is ₹58,250 per 10 grams. Prices are updated every 5 minutes on LivePriceIndia.' },
-    { q: 'What is today\'s petrol price in Mumbai?', a: 'Today\'s petrol price in Mumbai is approximately ₹111.35 per litre and diesel price is ₹97.28 per litre. Fuel prices are updated daily at 6 AM.' },
+    { q: 'What is today\'s gold rate in Pune?', a: 'You can check today\'s live 24K and 22K gold rate in Pune on LivePriceIndia. Prices are sourced from live markets and updated every 5 minutes.' },
+    { q: 'What is today\'s petrol price in Mumbai?', a: 'Today\'s petrol and diesel prices in Mumbai are available on LivePriceIndia. Fuel prices in India are revised daily at 6 AM by oil marketing companies.' },
     { q: 'How to check live Nifty 50 support and resistance levels?', a: 'You can check live Nifty 50 and Bank Nifty support & resistance levels on LivePriceIndia. Our system auto-calculates levels using pivot point analysis updated in real-time.' },
-    { q: 'What is Bitcoin price in INR today?', a: 'The current Bitcoin price in INR is approximately ₹42,50,000. LivePriceIndia tracks top 15 cryptocurrency prices in Indian Rupees with 30-second updates.' },
+    { q: 'What is Bitcoin price in INR today?', a: 'Check the live Bitcoin price in Indian Rupees on LivePriceIndia. We track top 15 cryptocurrency prices in INR with 30-second updates.' },
     { q: 'How to find cheapest flights from Pune?', a: 'Use the LivePriceIndia flight tracker to compare Pune to Goa, Delhi, Mumbai and other routes. We track IndiGo, SpiceJet, Air India prices and alert you on price drops.' },
   ]
 

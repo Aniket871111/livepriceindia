@@ -2,10 +2,13 @@ import { Metadata } from 'next'
 import GoldCityContent from '@/components/city/GoldCityContent'
 import { fetchGoldPrices } from '@/lib/fetchPrices'
 
+const SITE_URL = process.env.SITE_URL || 'https://livepriceindia.vercel.app'
+
 export const metadata: Metadata = {
   title: 'Gold Rate Today in Pune - 22K 24K Price per Gram & 10g',
   description: 'Today\'s gold rate in Pune: Live 24K & 22K gold price per 10 grams. Silver rate updated every 5 minutes. Check gold price trend for Pune.',
   keywords: ['gold rate today pune', 'gold price pune', '22 carat gold rate pune', '24 carat gold rate pune', 'silver rate pune today'],
+  alternates: { canonical: `${SITE_URL}/gold-price-pune` },
 }
 
 export const revalidate = 300

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Ahmedabad - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Ahmedabad with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price ahmedabad today', 'diesel price ahmedabad', 'cng price ahmedabad'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-ahmedabad' },
 }
 
 export const revalidate = 3600

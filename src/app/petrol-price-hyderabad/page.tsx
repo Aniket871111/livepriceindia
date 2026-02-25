@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Hyderabad - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Hyderabad with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price hyderabad today', 'diesel price hyderabad', 'cng price hyderabad'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-hyderabad' },
 }
 
 export const revalidate = 3600

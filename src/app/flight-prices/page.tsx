@@ -4,8 +4,9 @@ import { Plane, TrendingDown, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Flight Price Tracker Pune - Cheapest Flights to Goa, Delhi, Mumbai',
-  description: 'Track cheapest flights from Pune to Goa ₹3,450, Delhi ₹4,850, Mumbai ₹2,850. Compare IndiGo, SpiceJet, Air India prices. Free price drop alerts.',
+  description: 'Track cheapest flights from Pune to Goa, Delhi, Mumbai. Compare IndiGo, SpiceJet, Air India prices. Free price drop alerts.',
   keywords: ['cheapest flights from pune', 'pune to goa flight price', 'pune to delhi flight', 'pune to mumbai flight fare', 'cheap flight deals pune'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/flight-prices' },
 }
 
 export const revalidate = 3600

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     'india vs australia live', 'ipl live score', 'cricket match today',
     'live score ball by ball', 't20 world cup live', 'test match live score',
   ],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/cricket-live' },
 }
 
 export const revalidate = 30

@@ -4,10 +4,15 @@ import Script from 'next/script'
 import { Coins, TrendingUp, TrendingDown, ArrowRight, MapPin } from 'lucide-react'
 import { fetchGoldPrices, GoldPriceData } from '@/lib/fetchPrices'
 
+const SITE_URL = process.env.SITE_URL || 'https://livepriceindia.vercel.app'
+
 export const metadata: Metadata = {
   title: 'Gold Rate Today in India - Live 22K & 24K Prices Pune Mumbai Delhi',
   description: 'Check today\'s live gold rate in India. 24K & 22K gold price per 10g across Pune, Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Kolkata, Ahmedabad. Updated every 5 minutes.',
   keywords: ['gold rate today', 'gold price pune', 'gold rate mumbai', 'gold price delhi', '22 carat gold price', '24 carat gold rate', 'silver rate today india', 'gold rate today pune per gram'],
+  alternates: {
+    canonical: `${SITE_URL}/gold-price-india`,
+  },
 }
 
 export const revalidate = 300 // 5 minutes ISR
@@ -32,27 +37,38 @@ export default async function GoldPricePage() {
   const minPrice = Math.min(...prices24k)
   const maxPrice = Math.max(...prices24k)
 
-  const productSchema = {
+  const breadcrumbSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: 'Gold 24K (10 gram)',
-    offers: {
-      '@type': 'AggregateOffer',
-      lowPrice: minPrice.toString(),
-      highPrice: maxPrice.toString(),
-      priceCurrency: 'INR',
-      offerCount: cities.length.toString(),
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Gold Rate Today India', item: `${SITE_URL}/gold-price-india` },
+    ],
+  }
+
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Gold Rate Today in India',
+    description: `Live 24K gold price ranges from ₹${minPrice.toLocaleString('en-IN')} to ₹${maxPrice.toLocaleString('en-IN')} per 10g across 8 Indian cities.`,
+    url: `${SITE_URL}/gold-price-india`,
+    dateModified: new Date().toISOString(),
+    publisher: {
+      '@type': 'Organization',
+      name: 'LivePriceIndia',
+      url: SITE_URL,
     },
   }
 
   return (
     <>
-      <Script id="gold-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      <Script id="breadcrumb-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <Script id="webpage-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
 
       <section className="py-8 md:py-12 bg-gradient-to-br from-yellow-50 via-white to-amber-50">
         <div className="container">
           {/* Breadcrumb */}
-          <nav className="text-sm mb-6 text-slate-500">
+          <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-500">
             <Link href="/" className="hover:text-primary-600">Home</Link>
             <span className="mx-2">›</span>
             <span className="text-slate-900 font-medium">Gold Rate Today India</span>
@@ -64,7 +80,7 @@ export default async function GoldPricePage() {
             </div>
             <div>
               <h1 className="text-3xl md:text-4xl font-bold">Gold Rate Today in India</h1>
-              <p className="text-slate-700">Live 22K & 24K prices across 8 cities • Updated: {today}</p>
+              <p className="text-slate-700">Live 22K & 24K prices across 8 cities • Updated: <time dateTime={new Date().toISOString().split('T')[0]}>{today}</time></p>
             </div>
           </div>
 
@@ -72,6 +88,7 @@ export default async function GoldPricePage() {
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden mb-8">
             <div className="overflow-x-auto">
               <table className="w-full">
+                <caption className="sr-only">Gold and silver prices across Indian cities today</caption>
                 <thead className="bg-slate-50 border-b border-slate-200">
                   <tr>
                     <th className="text-left py-4 px-6 font-semibold text-slate-700">City</th>
@@ -122,8 +139,8 @@ export default async function GoldPricePage() {
               <ul className="space-y-2 text-slate-700 text-sm">
                 <li>• Silver: ₹{Math.min(...cities.map(c => c.silver)).toLocaleString('en-IN')} – ₹{Math.max(...cities.map(c => c.silver)).toLocaleString('en-IN')} per kg</li>
                 <li>• Gold-Silver ratio: {(cities[0].gold24k / (cities[0].silver / 100)).toFixed(1)}</li>
-                <li>• Prices auto-update every 5 minutes</li>
-                <li>• Source: Live market data</li>
+                <li>• Prices update every 5 minutes from live market data</li>
+                <li>• Source: CoinGecko & Yahoo Finance</li>
               </ul>
             </div>
             <div className="bg-white rounded-xl shadow p-6 border border-slate-200">

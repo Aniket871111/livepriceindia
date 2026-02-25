@@ -8,8 +8,10 @@ import Footer from '@/components/layout/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const SITE_URL = process.env.SITE_URL || 'https://livepriceindia.vercel.app'
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL || 'https://livepriceindia.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Gold Rate Today, Petrol Price, Nifty Live, Crypto INR & Flight Tracker | LivePriceIndia',
     template: '%s | LivePriceIndia'
@@ -34,27 +36,21 @@ export const metadata: Metadata = {
   authors: [{ name: 'LivePriceIndia' }],
   creator: 'LivePriceIndia',
   publisher: 'LivePriceIndia',
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://livepriceindia.vercel.app',
+    url: SITE_URL,
     title: 'Gold Rate Today, Petrol Price, Nifty Live, Crypto INR | LivePriceIndia',
     description: 'Check today gold rate, petrol price, Nifty 50 live chart, Bitcoin INR price & cheapest flights from Pune, Mumbai, Delhi. Free alerts!',
     siteName: 'LivePriceIndia',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'LivePriceIndia - Real-time Financial Prices'
-      }
-    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Live Gold, Petrol, Crypto & Flight Prices India',
     description: 'Real-time financial prices tracking for India',
-    images: ['/og-image.jpg'],
     creator: '@livepriceindia'
   },
   robots: {
@@ -69,11 +65,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: '/favicon.svg',
   },
   manifest: '/site.webmanifest',
+  other: {
+    'theme-color': '#0284c7',
+  },
   verification: {
     google: 'googlee29e8d7fc27c5500',
   },

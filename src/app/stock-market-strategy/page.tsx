@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { TrendingUp, BarChart3, Target, ShieldCheck, Zap, BookOpen, ArrowRight, AlertTriangle, DollarSign, LineChart } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Stock Market Strategy India 2024 - Nifty, Bank Nifty & Intraday Trading Guide',
+  title: 'Stock Market Strategy India - Nifty, Bank Nifty & Intraday Trading Guide',
   description: 'Complete stock market strategy guide for Indian traders. Learn Nifty 50, Bank Nifty trading strategies, intraday tips, swing trading, support & resistance levels, and risk management. Free for beginners.',
   keywords: [
     'stock market strategy india', 'nifty trading strategy', 'bank nifty strategy',
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'stock market for beginners india', 'option trading strategy', 'nifty 50 levels today',
     'how to trade nifty', 'best stock market strategy', 'risk management trading'
   ],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/stock-market-strategy' },
 }
 
 export const revalidate = 3600

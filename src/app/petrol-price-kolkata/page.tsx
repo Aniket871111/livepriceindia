@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Kolkata - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Kolkata with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price kolkata today', 'diesel price kolkata', 'cng price kolkata'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-kolkata' },
 }
 
 export const revalidate = 3600

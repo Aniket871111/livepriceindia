@@ -4,14 +4,15 @@ export interface JsonLd {
   [key: string]: any
 }
 
+const SITE_URL = process.env.SITE_URL || 'https://livepriceindia.vercel.app'
+
 export function generateOrganizationSchema(): JsonLd {
   return {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
     name: 'LivePriceIndia',
     description: 'Real-time financial prices tracking platform for India',
-    url: 'https://livepriceindia.com',
-    logo: 'https://livepriceindia.com/logo.png',
+    url: SITE_URL,
     sameAs: [
       'https://twitter.com/livepriceindia',
       'https://facebook.com/livepriceindia',
@@ -76,10 +77,7 @@ export function generateArticleSchema(article: {
     publisher: {
       '@type': 'Organization',
       name: 'LivePriceIndia',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://livepriceindia.com/logo.png',
-      },
+      url: SITE_URL,
     },
     ...(article.image && {
       image: article.image,

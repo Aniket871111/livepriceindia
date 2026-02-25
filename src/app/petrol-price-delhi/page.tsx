@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Delhi - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Delhi with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price delhi today', 'diesel price delhi', 'cng price delhi'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-delhi' },
 }
 
 export const revalidate = 3600

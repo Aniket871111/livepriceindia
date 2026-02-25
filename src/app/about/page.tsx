@@ -5,6 +5,7 @@ import { Users, Target, Shield, TrendingUp, Heart, Globe } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'About LivePriceIndia - India\'s #1 Free Real-Time Price Tracker',
   description: 'LivePriceIndia provides free real-time gold rates, petrol prices, Nifty live data, cryptocurrency rates in INR, and flight prices across India. Trusted by 10K+ users daily.',
+  alternates: { canonical: 'https://livepriceindia.vercel.app/about' },
 }
 
 export default function AboutPage() {

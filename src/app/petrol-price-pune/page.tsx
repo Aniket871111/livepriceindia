@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Pune - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Pune with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price pune today', 'diesel price pune', 'cng price pune', 'fuel price pune'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-pune' },
 }
 
 export const revalidate = 3600

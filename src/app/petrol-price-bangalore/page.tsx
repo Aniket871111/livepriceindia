@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Bangalore - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Bangalore with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price bangalore today', 'diesel price bangalore', 'cng price bangalore'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-bangalore' },
 }
 
 export const revalidate = 3600

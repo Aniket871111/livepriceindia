@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Nifty 50 Live Chart - Support Resistance Levels & Bank Nifty Today',
   description: 'Nifty 50 live with auto-calculated support & resistance levels, Bank Nifty live chart, intraday pivot points. Free real-time updates for day traders.',
   keywords: ['nifty 50 live', 'nifty live chart', 'bank nifty live', 'nifty support resistance', 'bank nifty intraday levels', 'nifty 50 today'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/nifty-live' },
 }
 
 export const revalidate = 60

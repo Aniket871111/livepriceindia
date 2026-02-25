@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Coins, MapPin, TrendingUp } from 'lucide-react'
+import { Coins, MapPin, TrendingUp, TrendingDown } from 'lucide-react'
 import { GoldPriceData } from '@/lib/fetchPrices'
 
 interface GoldCityContentProps {
@@ -29,7 +29,7 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-yellow-50 via-white to-amber-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-500">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <Link href="/gold-price-india" className="hover:text-primary-600">Gold Rate India</Link>
@@ -43,7 +43,7 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
           </div>
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Gold Rate Today in {cityName}</h1>
-            <p className="text-slate-600">22K & 24K live prices • Updated: {today}</p>
+            <p className="text-slate-600">22K & 24K live prices • Updated: <time dateTime={new Date().toISOString().split('T')[0]}>{today}</time></p>
           </div>
         </div>
 
@@ -53,21 +53,21 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
             <div className="text-sm text-slate-600 mb-1">24 Karat / 10g</div>
             <div className="text-3xl font-bold text-red-600">₹{data.gold24k.toLocaleString('en-IN')}</div>
             <span className={`inline-flex items-center gap-1 text-sm font-semibold mt-1 ${data.change >= 0 ? 'text-green-700' : 'text-red-700'}`}>
-              <TrendingUp className="w-3 h-3" /> {data.change >= 0 ? '+' : ''}{data.change}%
+              {data.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />} {data.change >= 0 ? '+' : ''}{data.change}%
             </span>
           </div>
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 text-center">
             <div className="text-sm text-slate-600 mb-1">22 Karat / 10g</div>
             <div className="text-3xl font-bold text-slate-900">₹{data.gold22k.toLocaleString('en-IN')}</div>
             <span className={`inline-flex items-center gap-1 text-sm font-semibold mt-1 ${data.change >= 0 ? 'text-green-700' : 'text-red-700'}`}>
-              <TrendingUp className="w-3 h-3" /> {data.change >= 0 ? '+' : ''}{data.change}%
+              {data.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />} {data.change >= 0 ? '+' : ''}{data.change}%
             </span>
           </div>
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 text-center">
             <div className="text-sm text-slate-600 mb-1">Silver / kg</div>
             <div className="text-3xl font-bold text-slate-800">₹{data.silver.toLocaleString('en-IN')}</div>
-            <span className="inline-flex items-center gap-1 text-sm text-green-700 font-semibold mt-1">
-              <TrendingUp className="w-3 h-3" /> Live
+            <span className="inline-flex items-center gap-1 text-sm text-slate-600 font-semibold mt-1">
+              Updated live
             </span>
           </div>
         </div>
@@ -76,6 +76,7 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
         <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden mb-8">
           <div className="bg-yellow-600 text-white px-6 py-3 font-semibold">Gold Price in {cityName} — By Weight</div>
           <table className="w-full">
+            <caption className="sr-only">Gold price per weight in {cityName}</caption>
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
                 <th className="text-left py-3 px-6 font-semibold text-slate-700">Weight</th>
@@ -99,7 +100,7 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
         <div className="bg-white rounded-xl shadow p-6 border border-slate-200 mb-8">
           <h2 className="text-xl font-bold text-slate-900 mb-4">Compare Gold Rate — {cityName} vs Other Cities</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {otherCities.slice(0, 4).map(([key, city]) => (
+            {otherCities.slice(0, 7).map(([key, city]) => (
               <Link key={key} href={`/gold-price-${key}`} className="block p-4 rounded-lg border border-slate-200 hover:border-yellow-400 hover:shadow transition-all text-center">
                 <div className="flex items-center justify-center gap-1 text-sm text-slate-600 mb-1">
                   <MapPin className="w-3 h-3" /> {city.name}

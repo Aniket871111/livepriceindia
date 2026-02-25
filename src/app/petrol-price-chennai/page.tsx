@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in Chennai - Diesel & CNG Rate',
   description: 'Today\'s petrol price in Chennai with diesel & CNG rates. Updated daily at 6 AM. Fuel cost calculator & city comparison.',
   keywords: ['petrol price chennai today', 'diesel price chennai', 'cng price chennai'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-chennai' },
 }
 
 export const revalidate = 3600

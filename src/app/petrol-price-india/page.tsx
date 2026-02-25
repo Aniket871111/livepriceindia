@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Petrol Price Today in India - Diesel Rate Pune Mumbai Delhi',
   description: 'Check today\'s petrol & diesel price in all Indian cities. Live fuel rates updated daily at 6 AM. City-wise comparison & fuel cost calculator.',
   keywords: ['petrol price today', 'diesel price today', 'petrol price pune', 'diesel rate mumbai', 'fuel price india', 'petrol rate delhi today'],
+  alternates: { canonical: 'https://livepriceindia.vercel.app/petrol-price-india' },
 }
 
 export const revalidate = 3600

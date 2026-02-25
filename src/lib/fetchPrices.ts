@@ -331,10 +331,57 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
   const cached = getCached<CricketMatch[]>('cricket', 30 * 1000)
   if (cached) return cached
 
+  // Try CricAPI first (more reliable than scraping)
   try {
-    // Scrape Cricbuzz live scores page
+    const res = await fetch(
+      'https://api.cricapi.com/v1/cricScore?apikey=da4e98e3-39d0-48c1-b2a1-81e3e7b8a3e5',
+      { cache: 'no-store', signal: AbortSignal.timeout(8000) }
+    )
+    if (res.ok) {
+      const json = await res.json()
+      if (json.status === 'success' && json.data?.length > 0) {
+        const matches: CricketMatch[] = json.data.slice(0, 8).map((m: Record<string, unknown>) => {
+          const isLive = m.matchStarted && !m.matchEnded
+          const isCompleted = m.matchEnded
+          const status = isLive ? 'live' : (isCompleted ? 'completed' : 'upcoming')
+          
+          return {
+            id: (m.id as string) || String(Math.random()),
+            status,
+            statusText: (m.status as string) || '',
+            team1: {
+              name: (m.t1 as string) || 'TBA',
+              shortName: extractTeamShort((m.t1 as string) || 'TBA'),
+              score: (m.t1s as string) || '-',
+              overs: '',
+              flag: '🏏',
+            },
+            team2: {
+              name: (m.t2 as string) || 'TBA',
+              shortName: extractTeamShort((m.t2 as string) || 'TBA'),
+              score: (m.t2s as string) || '-',
+              overs: '',
+              flag: '🏏',
+            },
+            format: ((m.matchType as string) || 't20').toUpperCase(),
+            venue: '',
+            result: (m.status as string) || '',
+            seriesName: (m.series as string) || 'Cricket Match',
+          }
+        })
+        setCache('cricket', matches)
+        return matches
+      }
+    }
+  } catch (err) {
+    console.error('CricAPI error:', err)
+  }
+
+  // Try Cricbuzz scraping as backup
+  try {
     const res = await fetch('https://www.cricbuzz.com/cricket-match/live-scores', {
       cache: 'no-store',
+      signal: AbortSignal.timeout(10000),
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -478,44 +525,6 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
   } catch (err) {
     console.error('Cricket scraping error:', err)
   }
-
-  // Fallback: try alternative free API (CricAPI with no key — returns basic data)
-  try {
-    const res = await fetch(
-      'https://api.cricapi.com/v1/cricScore?apikey=da4e98e3-39d0-48c1-b2a1-81e3e7b8a3e5',
-      { cache: 'no-store' }
-    )
-    if (res.ok) {
-      const json = await res.json()
-      if (json.status === 'success' && json.data?.length > 0) {
-        const matches: CricketMatch[] = json.data.slice(0, 8).map((m: Record<string, unknown>) => ({
-          id: (m.id as string) || String(Math.random()),
-          status: m.matchStarted ? (m.matchEnded ? 'completed' : 'live') : 'upcoming',
-          statusText: (m.status as string) || '',
-          team1: {
-            name: (m.t1 as string) || 'TBA',
-            shortName: extractTeamShort((m.t1 as string) || 'TBA'),
-            score: (m.t1s as string) || '-',
-            overs: '',
-            flag: '🏏',
-          },
-          team2: {
-            name: (m.t2 as string) || 'TBA',
-            shortName: extractTeamShort((m.t2 as string) || 'TBA'),
-            score: (m.t2s as string) || '-',
-            overs: '',
-            flag: '🏏',
-          },
-          format: ((m.matchType as string) || 't20').toUpperCase(),
-          venue: '',
-          result: (m.status as string) || '',
-          seriesName: (m.series as string) || 'Cricket Match',
-        }))
-        setCache('cricket', matches)
-        return matches
-      }
-    }
-  } catch { /* use final fallback */ }
 
   // Final fallback with realistic mock data
   const fallback: CricketMatch[] = [

@@ -40,7 +40,7 @@ export default async function NiftyLivePage() {
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Nifty & Bank Nifty Live</span>
@@ -60,37 +60,37 @@ export default async function NiftyLivePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Nifty 50</h2>
+              <h2 className="text-xl font-bold text-slate-900">Nifty 50</h2>
               <span className="text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full font-medium">LIVE</span>
             </div>
-            <div className="text-4xl font-bold mb-2">{nifty.price.toLocaleString('en-IN')}</div>
+            <div className="text-4xl font-bold text-slate-900 mb-2">{nifty.price.toLocaleString('en-IN')}</div>
             <span className={`inline-flex items-center gap-1 text-sm font-medium ${nifty.change > 0 ? 'text-green-600' : 'text-red-600'}`}>
               {nifty.change > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               {nifty.change > 0 ? '+' : ''}{nifty.change}%
             </span>
             <div className="grid grid-cols-4 gap-3 mt-4 text-sm">
-              <div><span className="text-slate-700 block">Open</span><span className="font-semibold">{nifty.open.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Open</span><span className="font-semibold text-slate-900">{nifty.open.toLocaleString('en-IN')}</span></div>
               <div><span className="text-slate-700 block">High</span><span className="font-semibold text-green-600">{nifty.high.toLocaleString('en-IN')}</span></div>
               <div><span className="text-slate-700 block">Low</span><span className="font-semibold text-red-600">{nifty.low.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold">{niftyLevels.pivot.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold text-slate-900">{niftyLevels.pivot.toLocaleString('en-IN')}</span></div>
             </div>
           </div>
 
           <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Bank Nifty</h2>
+              <h2 className="text-xl font-bold text-slate-900">Bank Nifty</h2>
               <span className="text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full font-medium">LIVE</span>
             </div>
-            <div className="text-4xl font-bold mb-2">{bankNifty.price.toLocaleString('en-IN')}</div>
+            <div className="text-4xl font-bold text-slate-900 mb-2">{bankNifty.price.toLocaleString('en-IN')}</div>
             <span className={`inline-flex items-center gap-1 text-sm font-medium ${bankNifty.change > 0 ? 'text-green-600' : 'text-red-600'}`}>
               {bankNifty.change > 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               {bankNifty.change > 0 ? '+' : ''}{bankNifty.change}%
             </span>
             <div className="grid grid-cols-4 gap-3 mt-4 text-sm">
-              <div><span className="text-slate-700 block">Open</span><span className="font-semibold">{bankNifty.open.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Open</span><span className="font-semibold text-slate-900">{bankNifty.open.toLocaleString('en-IN')}</span></div>
               <div><span className="text-slate-700 block">High</span><span className="font-semibold text-green-600">{bankNifty.high.toLocaleString('en-IN')}</span></div>
               <div><span className="text-slate-700 block">Low</span><span className="font-semibold text-red-600">{bankNifty.low.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold">{bankNiftyLevels.pivot.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold text-slate-900">{bankNiftyLevels.pivot.toLocaleString('en-IN')}</span></div>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default async function NiftyLivePage() {
               <tbody>
                 {[0, 1, 2].map((i) => (
                   <tr key={i} className="border-t border-slate-100">
-                    <td className="py-3 px-6 font-medium">Level {i + 1}</td>
+                    <td className="py-3 px-6 font-medium text-slate-700">Level {i + 1}</td>
                     <td className="py-3 px-6 text-right font-bold text-green-600">{niftyLevels.resistance[i].toLocaleString('en-IN')}</td>
                     <td className="py-3 px-6 text-right font-bold text-red-600">{niftyLevels.support[i].toLocaleString('en-IN')}</td>
                   </tr>
@@ -119,7 +119,7 @@ export default async function NiftyLivePage() {
               <tbody>
                 {[0, 1, 2].map((i) => (
                   <tr key={i} className="border-t border-slate-100">
-                    <td className="py-3 px-6 font-medium">Level {i + 1}</td>
+                    <td className="py-3 px-6 font-medium text-slate-700">Level {i + 1}</td>
                     <td className="py-3 px-6 text-right font-bold text-green-600">{bankNiftyLevels.resistance[i].toLocaleString('en-IN')}</td>
                     <td className="py-3 px-6 text-right font-bold text-red-600">{bankNiftyLevels.support[i].toLocaleString('en-IN')}</td>
                   </tr>

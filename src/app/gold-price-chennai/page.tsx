@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/gold-price-chennai` },
 }
 
-export const revalidate = 300
+export const revalidate = 60 // 1 minute ISR - faster updates
 
 export default async function GoldPriceChennai() {
   const allPrices = await fetchGoldPrices()

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 300 // 5 minutes ISR
+export const revalidate = 60 // 1 minute ISR - faster updates
 
 export default async function GoldPricePage() {
   const allPrices = await fetchGoldPrices()

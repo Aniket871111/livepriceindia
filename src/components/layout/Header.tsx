@@ -13,7 +13,7 @@ export default function Header() {
     { href: '/nifty-live', label: 'Nifty' },
     { href: '/stock-market-strategy', label: 'Strategy' },
     { href: '/crypto-prices-inr', label: 'Crypto' },
-    { href: '/flight-prices', label: 'Flights' },
+    { href: '/cricket-live', label: '🏏 Cricket' },
     { href: '/about', label: 'About' },
   ]
 

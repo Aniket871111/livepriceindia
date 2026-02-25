@@ -1,30 +1,40 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { TrendingUp, TrendingDown, BarChart3, ArrowRight } from 'lucide-react'
+import { fetchNiftyData } from '@/lib/fetchPrices'
 
 export const metadata: Metadata = {
   title: 'Nifty 50 Live Chart - Support Resistance Levels & Bank Nifty Today',
-  description: 'Nifty 50 live at 22,145. Auto-calculated support & resistance levels, Bank Nifty live chart, intraday pivot points. Free real-time updates for day traders.',
+  description: 'Nifty 50 live with auto-calculated support & resistance levels, Bank Nifty live chart, intraday pivot points. Free real-time updates for day traders.',
   keywords: ['nifty 50 live', 'nifty live chart', 'bank nifty live', 'nifty support resistance', 'bank nifty intraday levels', 'nifty 50 today'],
 }
 
 export const revalidate = 60
 
-export default function NiftyLivePage() {
-  const nifty = { price: 22145.50, open: 22089.75, high: 22198.30, low: 22012.40, change: 0.45 }
-  const bankNifty = { price: 47890.25, open: 47756.80, high: 47945.60, low: 47690.30, change: -0.23 }
-
-  const niftyLevels = {
-    support: [22050, 21980, 21900],
-    resistance: [22200, 22300, 22450],
-    pivot: 22087,
+function calcPivot(high: number, low: number, close: number) {
+  const pivot = (high + low + close) / 3
+  return {
+    pivot: Math.round(pivot * 100) / 100,
+    support: [
+      Math.round((2 * pivot - high) * 100) / 100,
+      Math.round((pivot - (high - low)) * 100) / 100,
+      Math.round((low - 2 * (high - pivot)) * 100) / 100,
+    ],
+    resistance: [
+      Math.round((2 * pivot - low) * 100) / 100,
+      Math.round((pivot + (high - low)) * 100) / 100,
+      Math.round((high + 2 * (pivot - low)) * 100) / 100,
+    ],
   }
+}
 
-  const bankNiftyLevels = {
-    support: [47700, 47500, 47300],
-    resistance: [48000, 48200, 48500],
-    pivot: 47797,
-  }
+export default async function NiftyLivePage() {
+  const { nifty: niftyData, bankNifty: bankNiftyData } = await fetchNiftyData()
+
+  const nifty = niftyData
+  const bankNifty = bankNiftyData
+  const niftyLevels = calcPivot(nifty.high, nifty.low, nifty.close)
+  const bankNiftyLevels = calcPivot(bankNifty.high, bankNifty.low, bankNifty.close)
 
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50">

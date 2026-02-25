@@ -1,34 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Bitcoin, TrendingUp, TrendingDown, ArrowRight } from 'lucide-react'
+import { Bitcoin, TrendingUp, TrendingDown } from 'lucide-react'
+import { fetchCryptoPrices } from '@/lib/fetchPrices'
 
 export const metadata: Metadata = {
-  title: 'Cryptocurrency Prices in INR - Bitcoin, Ethereum & Top 20 Live',
-  description: 'Live cryptocurrency prices in Indian Rupees (INR). Bitcoin ₹42,50,000, Ethereum ₹2,85,000 + top 20 coins. 24h change, INR calculator, buy links. Updated every 30 seconds.',
+  title: 'Cryptocurrency Prices in INR - Bitcoin, Ethereum & Top 15 Live',
+  description: 'Live cryptocurrency prices in Indian Rupees (INR). Bitcoin, Ethereum + top 15 coins with 24h change. Updated every 60 seconds via CoinGecko.',
   keywords: ['bitcoin price inr', 'cryptocurrency prices india', 'ethereum to inr', 'crypto prices inr live', 'bitcoin rate in indian rupees', 'best crypto to buy india'],
 }
 
 export const revalidate = 60
 
-const coins = [
-  { rank: 1, name: 'Bitcoin', symbol: 'BTC', price: 4250000, change: 2.1 },
-  { rank: 2, name: 'Ethereum', symbol: 'ETH', price: 285000, change: 1.8 },
-  { rank: 3, name: 'Tether', symbol: 'USDT', price: 83.50, change: 0.1 },
-  { rank: 4, name: 'BNB', symbol: 'BNB', price: 42800, change: -0.5 },
-  { rank: 5, name: 'XRP', symbol: 'XRP', price: 52.30, change: 3.2 },
-  { rank: 6, name: 'Cardano', symbol: 'ADA', price: 45.80, change: 1.5 },
-  { rank: 7, name: 'Solana', symbol: 'SOL', price: 12500, change: 4.7 },
-  { rank: 8, name: 'Dogecoin', symbol: 'DOGE', price: 9.25, change: -1.2 },
-  { rank: 9, name: 'Polkadot', symbol: 'DOT', price: 820, change: 2.3 },
-  { rank: 10, name: 'Polygon', symbol: 'MATIC', price: 95.40, change: 1.9 },
-  { rank: 11, name: 'Avalanche', symbol: 'AVAX', price: 3200, change: 3.1 },
-  { rank: 12, name: 'Chainlink', symbol: 'LINK', price: 1680, change: 2.7 },
-  { rank: 13, name: 'Toncoin', symbol: 'TON', price: 620, change: -0.8 },
-  { rank: 14, name: 'Shiba Inu', symbol: 'SHIB', price: 0.0012, change: 5.6 },
-  { rank: 15, name: 'Litecoin', symbol: 'LTC', price: 8900, change: 1.4 },
-]
+export default async function CryptoPricesPage() {
+  const coins = await fetchCryptoPrices()
 
-export default function CryptoPricesPage() {
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       <div className="container">
@@ -44,7 +29,7 @@ export default function CryptoPricesPage() {
           </div>
           <div>
             <h1 className="text-3xl md:text-4xl font-bold">Cryptocurrency Prices in INR</h1>
-            <p className="text-slate-600">Top 15 coins • Live updates every 30 seconds</p>
+            <p className="text-slate-600">Top {coins.length} coins • Live from CoinGecko • Updated every 60 seconds</p>
           </div>
         </div>
 
@@ -62,18 +47,23 @@ export default function CryptoPricesPage() {
                 </tr>
               </thead>
               <tbody>
-                {coins.map((coin) => (
-                  <tr key={coin.symbol} className="border-b border-slate-100 hover:bg-purple-50 transition-colors">
-                    <td className="py-4 px-4 text-slate-500">{coin.rank}</td>
+                {coins.map((coin, i) => (
+                  <tr key={coin.id} className="border-b border-slate-100 hover:bg-purple-50 transition-colors">
+                    <td className="py-4 px-4 text-slate-500">{i + 1}</td>
                     <td className="py-4 px-4">
-                      <div className="font-medium">{coin.name}</div>
-                      <div className="text-xs text-slate-500">{coin.symbol}</div>
+                      <div className="flex items-center gap-2">
+                        {coin.image && <img src={coin.image} alt={coin.name} className="w-6 h-6 rounded-full" />}
+                        <div>
+                          <div className="font-medium">{coin.name}</div>
+                          <div className="text-xs text-slate-500">{coin.symbol}</div>
+                        </div>
+                      </div>
                     </td>
-                    <td className="text-right py-4 px-4 font-bold">₹{coin.price.toLocaleString('en-IN')}</td>
+                    <td className="text-right py-4 px-4 font-bold">₹{coin.price.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
                     <td className="text-right py-4 px-4">
-                      <span className={`inline-flex items-center gap-1 text-sm font-medium ${coin.change > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {coin.change > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                        {coin.change > 0 ? '+' : ''}{coin.change}%
+                      <span className={`inline-flex items-center gap-1 text-sm font-medium ${coin.change24h > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        {coin.change24h > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                        {coin.change24h > 0 ? '+' : ''}{coin.change24h}%
                       </span>
                     </td>
                     <td className="text-right py-4 px-4">
@@ -97,14 +87,14 @@ export default function CryptoPricesPage() {
           </p>
           <h3 className="text-xl font-bold mb-3">Popular Indian Crypto Exchanges</h3>
           <ul className="list-disc pl-6 text-slate-600 space-y-1 mb-4">
-            <li><strong>WazirX</strong> — Largest exchange, INR pairs, owned by Binance</li>
+            <li><strong>WazirX</strong> — Largest exchange, INR pairs</li>
             <li><strong>CoinDCX</strong> — Beginner friendly, 200+ coins</li>
             <li><strong>ZebPay</strong> — Oldest Indian exchange, secure</li>
           </ul>
           <div className="flex flex-wrap gap-3 not-prose">
             <Link href="/gold-price-india" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Gold Rate Today</Link>
             <Link href="/nifty-live" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Nifty Live</Link>
-            <Link href="/flight-prices" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Flight Prices</Link>
+            <Link href="/cricket-live" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">🏏 Live Cricket</Link>
           </div>
         </article>
       </div>

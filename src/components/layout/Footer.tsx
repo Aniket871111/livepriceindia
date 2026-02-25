@@ -10,7 +10,7 @@ export default function Footer() {
       { label: 'Petrol Price Today', href: '/petrol-price-india' },
       { label: 'Nifty Live Chart', href: '/nifty-live' },
       { label: 'Crypto Prices INR', href: '/crypto-prices-inr' },
-      { label: 'Flight Price Tracker', href: '/flight-prices' },
+      { label: '🏏 Live Cricket Score', href: '/cricket-live' },
     ],
     'Cities': [
       { label: 'Pune', href: '/gold-price-pune' },
@@ -20,11 +20,10 @@ export default function Footer() {
       { label: 'Hyderabad', href: '/gold-price-hyderabad' },
     ],
     'Resources': [
+      { label: 'Stock Market Strategy', href: '/stock-market-strategy' },
+      { label: 'Flight Prices', href: '/flight-prices' },
       { label: 'About Us', href: '/about' },
       { label: 'Contact Us', href: '/contact' },
-      { label: 'Gold Rate India', href: '/gold-price-india' },
-      { label: 'Petrol Price India', href: '/petrol-price-india' },
-      { label: 'All City Pages', href: '/gold-price-pune' },
     ],
     'Legal': [
       { label: 'Privacy Policy', href: '/privacy' },

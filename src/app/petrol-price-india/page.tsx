@@ -1,33 +1,39 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Fuel, TrendingUp, MapPin, ArrowRight } from 'lucide-react'
+import { Fuel, MapPin, ArrowRight } from 'lucide-react'
+import { fetchFuelPrices } from '@/lib/fetchPrices'
 
 export const metadata: Metadata = {
   title: 'Petrol Price Today in India - Diesel Rate Pune Mumbai Delhi',
-  description: 'Check today\'s petrol price: Pune ₹106.50, Mumbai ₹111.35, Delhi ₹96.72 per litre. Live diesel rates, city-wise comparison, daily updates at 6 AM. Fuel cost calculator.',
+  description: 'Check today\'s petrol & diesel price in all Indian cities. Live fuel rates updated daily at 6 AM. City-wise comparison & fuel cost calculator.',
   keywords: ['petrol price today', 'diesel price today', 'petrol price pune', 'diesel rate mumbai', 'fuel price india', 'petrol rate delhi today'],
 }
 
-export const revalidate = 3600 // 1 hour (prices change daily)
+export const revalidate = 3600
 
-const cities = [
-  { name: 'Pune', petrol: 106.50, diesel: 94.25, change: 0 },
-  { name: 'Mumbai', petrol: 111.35, diesel: 97.28, change: 0 },
-  { name: 'Delhi', petrol: 96.72, diesel: 89.62, change: 0 },
-  { name: 'Bangalore', petrol: 101.94, diesel: 87.89, change: 0 },
-  { name: 'Hyderabad', petrol: 109.66, diesel: 97.82, change: 0 },
-  { name: 'Chennai', petrol: 102.63, diesel: 94.24, change: 0 },
-  { name: 'Kolkata', petrol: 104.95, diesel: 91.76, change: 0 },
-  { name: 'Ahmedabad', petrol: 96.63, diesel: 92.38, change: 0 },
-]
+const cityNames: Record<string, string> = {
+  pune: 'Pune', mumbai: 'Mumbai', delhi: 'Delhi', bangalore: 'Bangalore',
+  hyderabad: 'Hyderabad', chennai: 'Chennai', kolkata: 'Kolkata', ahmedabad: 'Ahmedabad',
+}
 
-export default function PetrolPricePage() {
+export default async function PetrolPricePage() {
+  const allPrices = await fetchFuelPrices()
   const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  const cities = Object.entries(allPrices).map(([key, data]) => ({
+    key,
+    name: cityNames[key] || key,
+    petrol: data.petrol,
+    diesel: data.diesel,
+    change: data.change,
+  }))
+
+  const cheapest = cities.reduce((a, b) => a.petrol < b.petrol ? a : b)
+  const costliest = cities.reduce((a, b) => a.petrol > b.petrol ? a : b)
 
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-orange-50 via-white to-amber-50">
       <div className="container">
-        {/* Breadcrumb */}
         <nav className="text-sm mb-6 text-slate-500">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
@@ -58,9 +64,9 @@ export default function PetrolPricePage() {
               </thead>
               <tbody>
                 {cities.map((city, i) => (
-                  <tr key={city.name} className={`border-b border-slate-100 hover:bg-orange-50 transition-colors ${i === 0 ? 'bg-orange-50/50' : ''}`}>
+                  <tr key={city.key} className={`border-b border-slate-100 hover:bg-orange-50 transition-colors ${i === 0 ? 'bg-orange-50/50' : ''}`}>
                     <td className="py-4 px-6">
-                      <Link href={`/petrol-price-${city.name.toLowerCase()}`} className="flex items-center gap-2 font-medium text-slate-900 hover:text-primary-600">
+                      <Link href={`/petrol-price-${city.key}`} className="flex items-center gap-2 font-medium text-slate-900 hover:text-primary-600">
                         <MapPin className="w-4 h-4 text-slate-400" />
                         {city.name}
                       </Link>
@@ -79,13 +85,13 @@ export default function PetrolPricePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow p-6 border border-slate-200">
             <h3 className="font-bold text-lg mb-2">⛽ Cheapest Petrol</h3>
-            <p className="text-2xl font-bold text-green-600 mb-1">₹96.63/L</p>
-            <p className="text-slate-600 text-sm">Ahmedabad has the cheapest petrol today</p>
+            <p className="text-2xl font-bold text-green-600 mb-1">₹{cheapest.petrol.toFixed(2)}/L</p>
+            <p className="text-slate-600 text-sm">{cheapest.name} has the cheapest petrol today</p>
           </div>
           <div className="bg-white rounded-xl shadow p-6 border border-slate-200">
             <h3 className="font-bold text-lg mb-2">⛽ Costliest Petrol</h3>
-            <p className="text-2xl font-bold text-red-600 mb-1">₹111.35/L</p>
-            <p className="text-slate-600 text-sm">Mumbai has the highest petrol price</p>
+            <p className="text-2xl font-bold text-red-600 mb-1">₹{costliest.petrol.toFixed(2)}/L</p>
+            <p className="text-slate-600 text-sm">{costliest.name} has the highest petrol price</p>
           </div>
           <div className="bg-white rounded-xl shadow p-6 border border-slate-200">
             <h3 className="font-bold text-lg mb-2">🔔 Price Drop Alert</h3>
@@ -116,6 +122,7 @@ export default function PetrolPricePage() {
             <Link href="/gold-price-india" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Gold Rate Today</Link>
             <Link href="/nifty-live" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Nifty Live</Link>
             <Link href="/crypto-prices-inr" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">Crypto Prices INR</Link>
+            <Link href="/cricket-live" className="text-primary-600 hover:underline text-sm bg-primary-50 px-3 py-1 rounded-full">🏏 Live Cricket</Link>
           </div>
         </article>
       </div>

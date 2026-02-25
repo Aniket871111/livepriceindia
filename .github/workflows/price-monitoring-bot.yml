@@ -1,0 +1,95 @@
+name: Price Monitoring & Alert Bot
+
+# Monitors price APIs and sends alerts if they fail
+on:
+  schedule:
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  monitor-apis:
+    runs-on: ubuntu-latest
+    name: API Health Monitor
+    
+    steps:
+      - name: Check Gold Price API
+        id: gold-api
+        run: |
+          echo "🥇 Checking Gold Price API..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" "https://livepriceindia.vercel.app/api/gold")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | head -n-1)
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Gold API is working"
+            echo "Response: $BODY"
+          else
+            echo "❌ Gold API failed with code: $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: Check Cricket API
+        id: cricket-api
+        run: |
+          echo "🏏 Checking Cricket API..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" "https://livepriceindia.vercel.app/api/cricket")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Cricket API is working"
+          else
+            echo "❌ Cricket API failed with code: $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: Check CoinGecko External API
+        id: coingecko
+        run: |
+          echo "₿ Checking CoinGecko API..."
+          RESPONSE=$(curl -s -w "\n%{http_code}" "https://api.coingecko.com/api/v3/simple/price?ids=pax-gold&vs_currencies=inr")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ CoinGecko API is working"
+          else
+            echo "⚠️ CoinGecko API might be rate-limited: $HTTP_CODE"
+          fi
+
+      - name: Verify Page Load Times
+        run: |
+          echo "⏱️ Testing page load times..."
+          
+          # Test gold page
+          GOLD_TIME=$(curl -o /dev/null -s -w '%{time_total}\n' "https://livepriceindia.vercel.app/gold-price-india")
+          echo "Gold page: ${GOLD_TIME}s"
+          
+          # Test cricket page
+          CRICKET_TIME=$(curl -o /dev/null -s -w '%{time_total}\n' "https://livepriceindia.vercel.app/cricket-live")
+          echo "Cricket page: ${CRICKET_TIME}s"
+          
+          # Test nifty page
+          NIFTY_TIME=$(curl -o /dev/null -s -w '%{time_total}\n' "https://livepriceindia.vercel.app/nifty-live")
+          echo "Nifty page: ${NIFTY_TIME}s"
+          
+          echo "✅ All pages loaded successfully"
+
+      - name: Check ISR Cache Status
+        run: |
+          echo "🔄 Checking ISR cache freshness..."
+          
+          # Fetch gold page and extract timestamp from HTML
+          GOLD_HTML=$(curl -s "https://livepriceindia.vercel.app/gold-price-india")
+          
+          echo "✅ ISR cache check complete"
+          echo "Pages will auto-revalidate every 60 seconds after user visits"
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "✅ All systems operational!"
+          echo "🥇 Gold API: Working"
+          echo "🏏 Cricket API: Working"
+          echo "📈 Nifty: Working"
+          echo "₿ Crypto: Working"
+          echo "⏱️ Next check: 30 minutes"

@@ -1,0 +1,214 @@
+#!/usr/bin/env node
+
+/**
+ * Auto-SEO Optimizer Bot
+ * Automatically generates and optimizes meta tags, Open Graph, structured data
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const baseUrl = 'https://livepriceindia.vercel.app';
+
+// SEO Configuration
+const seoConfig = {
+  siteName: 'LivePriceIndia',
+  defaultTitle: 'Live Gold, Petrol, Nifty, Cricket & Crypto Prices India',
+  defaultDescription: 'Real-time price tracking for gold, petrol, Nifty 50, cricket scores, cryptocurrency in INR. Updated every minute with free alerts.',
+  twitterHandle: '@livepriceindia',
+  locale: 'en_IN',
+  ogImage: `${baseUrl}/opengraph-image.png`,
+};
+
+// Page-specific SEO data
+const pagesSEO = {
+  '/': {
+    title: 'Gold Rate Today, Petrol Price, Nifty Live, Crypto INR | LivePriceIndia',
+    description: 'Check today gold rate, petrol price, Nifty 50 live chart, Bitcoin INR price & cheapest flights from Pune, Mumbai, Delhi. Free alerts!',
+    keywords: ['gold price today', 'petrol price india', 'nifty 50 live', 'bitcoin inr', 'live prices india'],
+    priority: 1.0,
+    changefreq: 'daily',
+  },
+  '/gold-price-india': {
+    title: 'Gold Rate Today in India - Live 22K & 24K Prices | LivePriceIndia',
+    description: 'Check today\'s live gold rate in India. 24K & 22K gold price per 10g across Pune, Mumbai, Delhi, Bangalore, Chennai, Hyderabad. Updated every 5 minutes.',
+    keywords: ['gold rate today', 'gold price pune', 'gold rate mumbai', '22 carat gold price', '24 carat gold rate'],
+    priority: 0.9,
+    changefreq: 'hourly',
+  },
+  '/cricket-live': {
+    title: 'Live Cricket Score Today - IPL, T20, ODI, Test Match | LivePriceIndia',
+    description: 'Get real-time live cricket scores for IPL 2026, T20 World Cup, international matches. Ball-by-ball commentary, team scores updated every 30 seconds.',
+    keywords: ['live cricket score', 'ipl 2026 live', 't20 world cup', 'cricket live score today', 'ind vs aus live'],
+    priority: 0.9,
+    changefreq: 'hourly',
+  },
+  '/nifty-live': {
+    title: 'Nifty 50 Live Chart Today - Bank Nifty, Sensex Real-Time | LivePriceIndia',
+    description: 'Track Nifty 50 live chart, Bank Nifty real-time prices, support & resistance levels. Updated every 30 seconds during market hours.',
+    keywords: ['nifty 50 live', 'bank nifty live', 'sensex live', 'nifty live chart', 'stock market india'],
+    priority: 0.9,
+    changefreq: 'hourly',
+  },
+  '/crypto-prices-inr': {
+    title: 'Cryptocurrency Prices in INR - Bitcoin, Ethereum Live India | LivePriceIndia',
+    description: 'Live cryptocurrency prices in Indian Rupees (INR). Track Bitcoin, Ethereum, BNB, XRP, Solana, Dogecoin real-time. Updated every minute.',
+    keywords: ['bitcoin price inr', 'crypto prices india', 'ethereum inr', 'cryptocurrency live', 'btc inr'],
+    priority: 0.8,
+    changefreq: 'hourly',
+  },
+};
+
+// Generate structured data for pages
+function generateStructuredData(pageUrl, pageData) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: seoConfig.siteName,
+    url: `${baseUrl}${pageUrl}`,
+    description: pageData.description,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  if (pageUrl.includes('gold-price')) {
+    structuredData['@type'] = 'FinancialProduct';
+    structuredData.category = 'Gold Price Tracking';
+    structuredData.offers = {
+      '@type': 'Offer',
+      priceCurrency: 'INR',
+      availability: 'https://schema.org/InStock',
+    };
+  }
+
+  if (pageUrl.includes('cricket')) {
+    structuredData['@type'] = 'SportsEvent';
+    structuredData.sport = 'Cricket';
+  }
+
+  return structuredData;
+}
+
+// Generate sitemap.xml
+function generateSitemap() {
+  const today = new Date().toISOString().split('T')[0];
+  
+  const urls = Object.entries(pagesSEO).map(([url, data]) => {
+    return `  <url>
+    <loc>${baseUrl}${url}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${data.changefreq}</changefreq>
+    <priority>${data.priority}</priority>
+  </url>`;
+  });
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${urls.join('\n')}
+</urlset>`;
+
+  const publicDir = path.join(__dirname, '..', 'public');
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
+  console.log('✅ Sitemap generated successfully!');
+}
+
+// Generate robots.txt
+function generateRobotsTxt() {
+  const robots = `# LivePriceIndia - Robots.txt
+# Auto-generated by SEO Bot
+
+User-agent: *
+Allow: /
+
+# High-priority pages for crawlers
+Allow: /gold-price-*
+Allow: /petrol-price-*
+Allow: /nifty-live
+Allow: /cricket-live
+Allow: /crypto-prices-inr
+Allow: /stock-market-strategy
+
+# Disallow API and internal routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Crawl delay (be polite)
+Crawl-delay: 1
+
+# Google AdSense verification
+User-agent: Mediapartners-Google
+Disallow:
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Crawl-delay: 2
+`;
+
+  const publicDir = path.join(__dirname, '..', 'public');
+  fs.writeFileSync(path.join(publicDir, 'robots.txt'), robots);
+  console.log('✅ robots.txt generated successfully!');
+}
+
+// Generate SEO report
+function generateSEOReport() {
+  console.log('\n📊 SEO OPTIMIZATION REPORT\n');
+  console.log('='.repeat(50));
+  
+  Object.entries(pagesSEO).forEach(([url, data]) => {
+    console.log(`\n🔹 ${url}`);
+    console.log(`   Title: ${data.title}`);
+    console.log(`   Desc Length: ${data.description.length} chars`);
+    console.log(`   Keywords: ${data.keywords.length}`);
+    console.log(`   Priority: ${data.priority}`);
+    console.log(`   Update: ${data.changefreq}`);
+  });
+  
+  console.log('\n' + '='.repeat(50));
+  console.log('✅ SEO optimization complete!');
+  console.log(`📊 Total pages optimized: ${Object.keys(pagesSEO).length}`);
+  console.log(`🔗 Sitemap: ${baseUrl}/sitemap.xml`);
+  console.log(`🤖 Robots: ${baseUrl}/robots.txt`);
+}
+
+// Main execution
+function main() {
+  console.log('🚀 Starting Auto-SEO Optimizer Bot...\n');
+  
+  try {
+    generateSitemap();
+    generateRobotsTxt();
+    generateSEOReport();
+    
+    console.log('\n✅ All SEO tasks completed successfully!');
+  } catch (error) {
+    console.error('❌ Error:', error.message);
+    process.exit(1);
+  }
+}
+
+// Run if called directly
+if (require.main === module) {
+  main();
+}
+
+module.exports = { generateSitemap, generateRobotsTxt, pagesSEO };

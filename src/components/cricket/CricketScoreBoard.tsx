@@ -235,7 +235,7 @@ function MatchCard({ match }: { match: CricketMatch }) {
             <span className="text-2xl">{match.team1.flag}</span>
             <div>
               <div className="font-bold text-slate-900">{match.team1.shortName}</div>
-              <div className="text-xs text-slate-500">{match.team1.name}</div>
+              <div className="text-xs text-slate-700">{match.team1.name}</div>
             </div>
           </div>
           <div className="text-right">
@@ -253,7 +253,7 @@ function MatchCard({ match }: { match: CricketMatch }) {
             <span className="text-2xl">{match.team2.flag}</span>
             <div>
               <div className="font-bold text-slate-900">{match.team2.shortName}</div>
-              <div className="text-xs text-slate-500">{match.team2.name}</div>
+              <div className="text-xs text-slate-700">{match.team2.name}</div>
             </div>
           </div>
           <div className="text-right">

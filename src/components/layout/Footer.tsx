@@ -47,7 +47,7 @@ export default function Footer() {
             <h3 className="text-2xl font-bold text-white mb-2">
               Get Daily Price Updates
             </h3>
-            <p className="text-slate-400 mb-6">
+            <p className="text-slate-300 mb-6">
               Subscribe to receive gold, petrol, crypto & stock prices in your inbox every morning
             </p>
             <form
@@ -136,10 +136,10 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-300">
             © {currentYear} LivePriceIndia. All rights reserved.
           </p>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-400">
             Prices are for reference only. Please verify before making decisions.
           </p>
         </div>

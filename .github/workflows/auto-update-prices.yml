@@ -1,0 +1,51 @@
+name: Auto Update Prices & Revalidate ISR Cache
+
+# Runs every hour to trigger ISR revalidation
+on:
+  schedule:
+    # Run every hour at minute 0
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  revalidate-prices:
+    runs-on: ubuntu-latest
+    name: Trigger Price Updates
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Revalidate Gold Prices
+        run: |
+          echo "🥇 Revalidating gold price pages..."
+          curl -f -X GET "https://livepriceindia.vercel.app/api/gold" || echo "Gold API check failed"
+          curl -f -X GET "https://livepriceindia.vercel.app/gold-price-india" || echo "Gold page check failed"
+          curl -f -X GET "https://livepriceindia.vercel.app/gold-price-pune" || echo "Pune page check failed"
+          curl -f -X GET "https://livepriceindia.vercel.app/gold-price-mumbai" || echo "Mumbai page check failed"
+          
+      - name: Revalidate Petrol Prices
+        run: |
+          echo "⛽ Revalidating petrol price pages..."
+          curl -f -X GET "https://livepriceindia.vercel.app/petrol-price-india" || echo "Petrol page check failed"
+          
+      - name: Revalidate Cricket Scores
+        run: |
+          echo "🏏 Revalidating cricket scores..."
+          curl -f -X GET "https://livepriceindia.vercel.app/api/cricket" || echo "Cricket API check failed"
+          curl -f -X GET "https://livepriceindia.vercel.app/cricket-live" || echo "Cricket page check failed"
+          
+      - name: Revalidate Nifty Data
+        run: |
+          echo "📈 Revalidating Nifty live data..."
+          curl -f -X GET "https://livepriceindia.vercel.app/nifty-live" || echo "Nifty page check failed"
+          
+      - name: Revalidate Crypto Prices
+        run: |
+          echo "₿ Revalidating crypto prices..."
+          curl -f -X GET "https://livepriceindia.vercel.app/crypto-prices-inr" || echo "Crypto page check failed"
+
+      - name: Summary
+        run: |
+          echo "✅ All price pages triggered for ISR revalidation"
+          echo "⏱️  Next run: 1 hour from now"

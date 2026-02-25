@@ -69,10 +69,10 @@ export default async function NiftyLivePage() {
               {nifty.change > 0 ? '+' : ''}{nifty.change}%
             </span>
             <div className="grid grid-cols-4 gap-3 mt-4 text-sm">
-              <div><span className="text-slate-500 block">Open</span><span className="font-semibold">{nifty.open.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">High</span><span className="font-semibold text-green-600">{nifty.high.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">Low</span><span className="font-semibold text-red-600">{nifty.low.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">Pivot</span><span className="font-semibold">{niftyLevels.pivot.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Open</span><span className="font-semibold">{nifty.open.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">High</span><span className="font-semibold text-green-600">{nifty.high.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Low</span><span className="font-semibold text-red-600">{nifty.low.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold">{niftyLevels.pivot.toLocaleString('en-IN')}</span></div>
             </div>
           </div>
 
@@ -87,10 +87,10 @@ export default async function NiftyLivePage() {
               {bankNifty.change > 0 ? '+' : ''}{bankNifty.change}%
             </span>
             <div className="grid grid-cols-4 gap-3 mt-4 text-sm">
-              <div><span className="text-slate-500 block">Open</span><span className="font-semibold">{bankNifty.open.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">High</span><span className="font-semibold text-green-600">{bankNifty.high.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">Low</span><span className="font-semibold text-red-600">{bankNifty.low.toLocaleString('en-IN')}</span></div>
-              <div><span className="text-slate-500 block">Pivot</span><span className="font-semibold">{bankNiftyLevels.pivot.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Open</span><span className="font-semibold">{bankNifty.open.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">High</span><span className="font-semibold text-green-600">{bankNifty.high.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Low</span><span className="font-semibold text-red-600">{bankNifty.low.toLocaleString('en-IN')}</span></div>
+              <div><span className="text-slate-700 block">Pivot</span><span className="font-semibold">{bankNiftyLevels.pivot.toLocaleString('en-IN')}</span></div>
             </div>
           </div>
         </div>

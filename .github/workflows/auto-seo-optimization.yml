@@ -1,0 +1,167 @@
+name: Auto SEO Optimization & Sitemap Generation
+
+# Runs daily to optimize SEO
+on:
+  schedule:
+    # Run daily at 2 AM IST (8:30 PM UTC previous day)
+    - cron: '30 20 * * *'
+  workflow_dispatch: # Allow manual trigger
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/app/**'
+      - 'public/**'
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+    name: Generate & Update Sitemap
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Sitemap
+        run: |
+          cat > scripts/generate-sitemap.js << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const baseUrl = 'https://livepriceindia.vercel.app';
+          const today = new Date().toISOString().split('T')[0];
+
+          const routes = [
+            { url: '', priority: '1.0', changefreq: 'daily' },
+            { url: '/gold-price-india', priority: '0.9', changefreq: 'hourly' },
+            { url: '/gold-price-pune', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-mumbai', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-delhi', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-bangalore', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-hyderabad', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-chennai', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-kolkata', priority: '0.8', changefreq: 'hourly' },
+            { url: '/gold-price-ahmedabad', priority: '0.8', changefreq: 'hourly' },
+            { url: '/petrol-price-india', priority: '0.9', changefreq: 'daily' },
+            { url: '/petrol-price-pune', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-mumbai', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-delhi', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-bangalore', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-hyderabad', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-chennai', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-kolkata', priority: '0.7', changefreq: 'daily' },
+            { url: '/petrol-price-ahmedabad', priority: '0.7', changefreq: 'daily' },
+            { url: '/nifty-live', priority: '0.9', changefreq: 'hourly' },
+            { url: '/cricket-live', priority: '0.9', changefreq: 'hourly' },
+            { url: '/crypto-prices-inr', priority: '0.8', changefreq: 'hourly' },
+            { url: '/stock-market-strategy', priority: '0.7', changefreq: 'weekly' },
+            { url: '/flight-prices', priority: '0.6', changefreq: 'daily' },
+            { url: '/about', priority: '0.5', changefreq: 'monthly' },
+            { url: '/contact', priority: '0.5', changefreq: 'monthly' },
+            { url: '/privacy', priority: '0.3', changefreq: 'monthly' },
+            { url: '/disclaimer', priority: '0.3', changefreq: 'monthly' },
+          ];
+
+          const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          ${routes.map(route => `  <url>
+            <loc>${baseUrl}${route.url}</loc>
+            <lastmod>${today}</lastmod>
+            <changefreq>${route.changefreq}</changefreq>
+            <priority>${route.priority}</priority>
+          </url>`).join('\n')}
+          </urlset>`;
+
+          fs.writeFileSync('public/sitemap.xml', sitemap);
+          console.log('✅ Sitemap generated successfully!');
+          EOF
+
+          node scripts/generate-sitemap.js
+
+      - name: Generate robots.txt
+        run: |
+          cat > public/robots.txt << 'EOF'
+          # LivePriceIndia Robots.txt - Auto-generated
+          User-agent: *
+          Allow: /
+
+          # Disallow admin/API routes from indexing
+          Disallow: /api/
+          Disallow: /_next/
+          Disallow: /admin/
+
+          # Allow important pages
+          Allow: /gold-price-*
+          Allow: /petrol-price-*
+          Allow: /nifty-live
+          Allow: /cricket-live
+          Allow: /crypto-prices-inr
+
+          # Sitemap location
+          Sitemap: https://livepriceindia.vercel.app/sitemap.xml
+
+          # Crawl delay for politeness (seconds)
+          Crawl-delay: 1
+          EOF
+
+      - name: Verify SEO Files
+        run: |
+          echo "📄 Verifying generated SEO files..."
+          ls -lh public/sitemap.xml public/robots.txt public/ads.txt
+          echo ""
+          echo "✅ Sitemap preview:"
+          head -20 public/sitemap.xml
+          echo ""
+          echo "✅ robots.txt preview:"
+          cat public/robots.txt
+
+      - name: Commit & Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/sitemap.xml public/robots.txt
+          git diff --staged --quiet || git commit -m "🤖 Auto-update: Sitemap & robots.txt [skip ci]"
+          git push || echo "No changes to push"
+
+  lighthouse-seo-check:
+    runs-on: ubuntu-latest
+    name: SEO Performance Check
+    needs: generate-sitemap
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse SEO Audit
+        run: |
+          echo "🔍 Running Lighthouse SEO audit..."
+          lhci autorun --collect.url=https://livepriceindia.vercel.app \
+            --collect.url=https://livepriceindia.vercel.app/gold-price-india \
+            --collect.url=https://livepriceindia.vercel.app/nifty-live \
+            --collect.url=https://livepriceindia.vercel.app/cricket-live \
+            || echo "Lighthouse audit completed with warnings"
+
+      - name: SEO Summary
+        run: |
+          echo "✅ SEO optimization complete!"
+          echo "📊 Sitemap: https://livepriceindia.vercel.app/sitemap.xml"
+          echo "🤖 Robots: https://livepriceindia.vercel.app/robots.txt"
+          echo "📢 Ads: https://livepriceindia.vercel.app/ads.txt"

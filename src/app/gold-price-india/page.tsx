@@ -68,7 +68,7 @@ export default async function GoldPricePage() {
       <section className="py-8 md:py-12 bg-gradient-to-br from-yellow-50 via-white to-amber-50">
         <div className="container">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-500">
+          <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-700">
             <Link href="/" className="hover:text-primary-600">Home</Link>
             <span className="mx-2">›</span>
             <span className="text-slate-900 font-medium">Gold Rate Today India</span>

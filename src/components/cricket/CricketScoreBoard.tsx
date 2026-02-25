@@ -64,7 +64,7 @@ export default function CricketScoreBoard() {
     <section className="py-8 md:py-12 bg-gradient-to-br from-green-50 via-white to-emerald-50 min-h-screen">
       <div className="container">
         {/* Breadcrumb */}
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Live Cricket Score</span>
@@ -85,9 +85,9 @@ export default function CricketScoreBoard() {
                     {liveCount} Live {liveCount === 1 ? 'Match' : 'Matches'}
                   </span>
                 )}
-                <span className="text-slate-400">•</span>
+                <span className="text-slate-600">•</span>
                 Auto-refreshing every 30s
-                {lastUpdated && <span className="text-slate-400">• Last: {lastUpdated}</span>}
+                {lastUpdated && <span className="text-slate-600">• Last: {lastUpdated}</span>}
               </p>
             </div>
           </div>

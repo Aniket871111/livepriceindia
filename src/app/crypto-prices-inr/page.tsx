@@ -18,7 +18,7 @@ export default async function CryptoPricesPage() {
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Crypto Prices in INR</span>
@@ -29,8 +29,8 @@ export default async function CryptoPricesPage() {
             <Bitcoin className="w-8 h-8 text-purple-600" />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold">Cryptocurrency Prices in INR</h1>
-            <p className="text-slate-600">Top {coins.length} coins • Live from CoinGecko • Updated every 60 seconds</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Cryptocurrency Prices in INR</h1>
+            <p className="text-slate-700">Top {coins.length} coins • Live from CoinGecko • Updated every 60 seconds</p>
           </div>
         </div>
 
@@ -50,17 +50,17 @@ export default async function CryptoPricesPage() {
               <tbody>
                 {coins.map((coin, i) => (
                   <tr key={coin.id} className="border-b border-slate-100 hover:bg-purple-50 transition-colors">
-                    <td className="py-4 px-4 text-slate-500">{i + 1}</td>
+                    <td className="py-4 px-4 text-slate-700 font-medium">{i + 1}</td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-2">
                         {coin.image && <img src={coin.image} alt={coin.name} className="w-6 h-6 rounded-full" />}
                         <div>
                           <div className="font-medium">{coin.name}</div>
-                          <div className="text-xs text-slate-500">{coin.symbol}</div>
+                          <div className="text-xs text-slate-600 font-medium">{coin.symbol}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="text-right py-4 px-4 font-bold">₹{coin.price.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
+                    <td className="text-right py-4 px-4 font-bold text-slate-900">₹{(coin.price || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
                     <td className="text-right py-4 px-4">
                       <span className={`inline-flex items-center gap-1 text-sm font-medium ${coin.change24h > 0 ? 'text-green-600' : 'text-red-600'}`}>
                         {coin.change24h > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}

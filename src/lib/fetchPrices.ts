@@ -98,8 +98,8 @@ export async function fetchGoldPrices(): Promise<Record<string, GoldPriceData>> 
   } catch { /* use fallback */ }
 
   // Final fallback values if all APIs fail
-  if (goldPerGramINR === 0) goldPerGramINR = 8300 // ~₹83,000/10g
-  if (silverPerKgINR === 0) silverPerKgINR = 95000
+  if (goldPerGramINR === 0) goldPerGramINR = 15260 // ~₹1,52,600/10g (updated Jun 2025)
+  if (silverPerKgINR === 0) silverPerKgINR = 100000 // ~₹1,00,000/kg (updated Jun 2025)
 
   // City variations (local taxes, transport, making charges vary)
   const cityMultipliers: Record<string, { offset: number; silverOffset: number }> = {
@@ -344,22 +344,23 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
           const isLive = m.matchStarted && !m.matchEnded
           const isCompleted = m.matchEnded
           const status = isLive ? 'live' : (isCompleted ? 'completed' : 'upcoming')
+          const isUpcoming = status === 'upcoming'
           
           return {
             id: (m.id as string) || String(Math.random()),
             status,
-            statusText: (m.status as string) || '',
+            statusText: (m.status as string) || (isUpcoming ? 'Upcoming' : ''),
             team1: {
               name: (m.t1 as string) || 'TBA',
               shortName: extractTeamShort((m.t1 as string) || 'TBA'),
-              score: (m.t1s as string) || '-',
+              score: (m.t1s as string) || (isUpcoming ? 'Yet to bat' : '-'),
               overs: '',
               flag: '🏏',
             },
             team2: {
               name: (m.t2 as string) || 'TBA',
               shortName: extractTeamShort((m.t2 as string) || 'TBA'),
-              score: (m.t2s as string) || '-',
+              score: (m.t2s as string) || (isUpcoming ? 'Yet to bat' : '-'),
               overs: '',
               flag: '🏏',
             },

@@ -29,7 +29,7 @@ export default function GoldCityContent({ cityKey, cityName, data, allCities }: 
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-yellow-50 via-white to-amber-50">
       <div className="container">
-        <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-500">
+        <nav aria-label="Breadcrumb" className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <Link href="/gold-price-india" className="hover:text-primary-600">Gold Rate India</Link>

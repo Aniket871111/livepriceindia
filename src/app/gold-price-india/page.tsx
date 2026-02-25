@@ -79,7 +79,7 @@ export default async function GoldPricePage() {
               <Coins className="w-8 h-8 text-yellow-600" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold">Gold Rate Today in India</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Gold Rate Today in India</h1>
               <p className="text-slate-700">Live 22K & 24K prices across 8 cities • Updated: <time dateTime={new Date().toISOString().split('T')[0]}>{today}</time></p>
             </div>
           </div>

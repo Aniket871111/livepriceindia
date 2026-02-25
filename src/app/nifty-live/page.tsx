@@ -51,7 +51,7 @@ export default async function NiftyLivePage() {
             <BarChart3 className="w-8 h-8 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold">Nifty 50 & Bank Nifty Live Dashboard</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Nifty 50 & Bank Nifty Live Dashboard</h1>
             <p className="text-slate-700">Support & Resistance levels • Auto-calculated pivot points</p>
           </div>
         </div>

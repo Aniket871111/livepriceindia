@@ -78,7 +78,7 @@ export default function StockMarketStrategyPage() {
       {/* Hero Section */}
       <section className="py-10 md:py-16 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <div className="container">
-          <nav className="text-sm mb-6 text-slate-500">
+          <nav className="text-sm mb-6 text-slate-700">
             <Link href="/" className="hover:text-primary-600">Home</Link>
             <span className="mx-2">›</span>
             <span className="text-slate-900 font-medium">Stock Market Strategy</span>

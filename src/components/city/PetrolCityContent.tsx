@@ -16,7 +16,7 @@ export default function PetrolCityContent({ cityKey, cityName, data, allCities }
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-orange-50 via-white to-amber-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <Link href="/petrol-price-india" className="hover:text-primary-600">Petrol Price India</Link>

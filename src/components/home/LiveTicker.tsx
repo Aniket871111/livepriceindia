@@ -118,7 +118,7 @@ function TickerItemComponent({ item }: { item: TickerItem }) {
       <span className="font-medium text-slate-300">
         {item.label}
         {item.city && (
-          <span className="text-xs ml-1 text-slate-500">({item.city})</span>
+          <span className="text-xs ml-1 text-slate-600">({item.city})</span>
         )}
         :
       </span>

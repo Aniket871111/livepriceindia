@@ -10,14 +10,14 @@ export default function PrivacyPage() {
   return (
     <section className="py-8 md:py-16">
       <div className="container max-w-4xl">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Privacy Policy</span>
         </nav>
 
-        <h1 className="text-3xl md:text-4xl font-bold mb-6">Privacy Policy</h1>
-        <p className="text-slate-500 mb-8">Last updated: {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Privacy Policy</h1>
+        <p className="text-slate-700 mb-8">Last updated: {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
         
         <div className="prose max-w-none text-slate-600">
           <h2 className="text-2xl font-bold text-slate-900">1. Introduction</h2>

@@ -35,7 +35,7 @@ export default async function PetrolPricePage() {
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-orange-50 via-white to-amber-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Petrol & Diesel Price Today</span>
@@ -46,8 +46,8 @@ export default async function PetrolPricePage() {
             <Fuel className="w-8 h-8 text-orange-600" />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold">Petrol & Diesel Price Today in India</h1>
-            <p className="text-slate-600">City-wise comparison • Updated: {today} at 6:00 AM</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Petrol & Diesel Price Today in India</h1>
+            <p className="text-slate-700">City-wise comparison • Updated: {today} at 6:00 AM</p>
           </div>
         </div>
 
@@ -68,13 +68,13 @@ export default async function PetrolPricePage() {
                   <tr key={city.key} className={`border-b border-slate-100 hover:bg-orange-50 transition-colors ${i === 0 ? 'bg-orange-50/50' : ''}`}>
                     <td className="py-4 px-6">
                       <Link href={`/petrol-price-${city.key}`} className="flex items-center gap-2 font-medium text-slate-900 hover:text-primary-600">
-                        <MapPin className="w-4 h-4 text-slate-400" />
+                        <MapPin className="w-4 h-4 text-slate-600" />
                         {city.name}
                       </Link>
                     </td>
                     <td className="text-right py-4 px-6 font-bold text-lg">₹{city.petrol.toFixed(2)}</td>
                     <td className="text-right py-4 px-6 font-semibold text-slate-700">₹{city.diesel.toFixed(2)}</td>
-                    <td className="text-right py-4 px-6 text-slate-500">₹{(city.petrol - city.diesel).toFixed(2)}</td>
+                    <td className="text-right py-4 px-6 text-slate-700">₹{(city.petrol - city.diesel).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>

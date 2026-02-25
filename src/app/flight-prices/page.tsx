@@ -51,7 +51,7 @@ export default function FlightPricesPage() {
   return (
     <section className="py-8 md:py-12 bg-gradient-to-br from-sky-50 via-white to-blue-50">
       <div className="container">
-        <nav className="text-sm mb-6 text-slate-500">
+        <nav className="text-sm mb-6 text-slate-700">
           <Link href="/" className="hover:text-primary-600">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-slate-900 font-medium">Flight Price Tracker — Pune</span>
@@ -62,8 +62,8 @@ export default function FlightPricesPage() {
             <Plane className="w-8 h-8 text-sky-600" />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold">Cheapest Flights from Pune</h1>
-            <p className="text-slate-600">Compare airlines & fares • Updated: {today}</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Cheapest Flights from Pune</h1>
+            <p className="text-slate-700">Compare airlines & fares • Updated: {today}</p>
           </div>
         </div>
 

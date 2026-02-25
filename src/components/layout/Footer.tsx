@@ -95,7 +95,7 @@ export default function Footer() {
                 <span className="text-xl font-bold text-gold-500">India</span>
               </div>
             </Link>
-            <p className="text-sm text-slate-400 mb-4">
+            <p className="text-sm text-slate-300 mb-4">
               Real-time financial prices for India. Track gold, petrol, crypto, stocks & flight prices.
             </p>
             <div className="flex gap-3">

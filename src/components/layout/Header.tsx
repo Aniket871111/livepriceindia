@@ -11,6 +11,7 @@ export default function Header() {
     { href: '/gold-price-india', label: 'Gold & Silver' },
     { href: '/petrol-price-india', label: 'Petrol & Diesel' },
     { href: '/nifty-live', label: 'Nifty' },
+    { href: '/stock-market-strategy', label: 'Strategy' },
     { href: '/crypto-prices-inr', label: 'Crypto' },
     { href: '/flight-prices', label: 'Flights' },
     { href: '/about', label: 'About' },

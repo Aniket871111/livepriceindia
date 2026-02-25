@@ -55,7 +55,7 @@ export default function GoldPricePage() {
             </div>
             <div>
               <h1 className="text-3xl md:text-4xl font-bold">Gold Rate Today in India</h1>
-              <p className="text-slate-600">Live 22K & 24K prices across cities • Updated: {today}</p>
+              <p className="text-slate-700">Live 22K & 24K prices across cities • Updated: {today}</p>
             </div>
           </div>
 
@@ -81,9 +81,9 @@ export default function GoldPricePage() {
                           {city.name}
                         </Link>
                       </td>
-                      <td className="text-right py-4 px-6 font-bold text-lg">₹{city.gold24k.toLocaleString('en-IN')}</td>
-                      <td className="text-right py-4 px-6 font-semibold text-slate-700">₹{city.gold22k.toLocaleString('en-IN')}</td>
-                      <td className="text-right py-4 px-6 text-slate-600">₹{city.silver.toLocaleString('en-IN')}</td>
+                      <td className="text-right py-4 px-6 font-bold text-lg text-red-600">₹{city.gold24k.toLocaleString('en-IN')}</td>
+                      <td className="text-right py-4 px-6 font-semibold text-slate-900">₹{city.gold22k.toLocaleString('en-IN')}</td>
+                      <td className="text-right py-4 px-6 font-medium text-slate-800">₹{city.silver.toLocaleString('en-IN')}</td>
                       <td className="text-right py-4 px-6">
                         <span className="inline-flex items-center gap-1 text-sm font-medium text-green-600">
                           <TrendingUp className="w-4 h-4" /> +{city.change}%

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Bitcoin, TrendingUp, TrendingDown } from 'lucide-react'
 import { fetchCryptoPrices } from '@/lib/fetchPrices'
 
@@ -53,7 +54,7 @@ export default async function CryptoPricesPage() {
                     <td className="py-4 px-4 text-slate-700 font-medium">{i + 1}</td>
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-2">
-                        {coin.image && <img src={coin.image} alt={coin.name} className="w-6 h-6 rounded-full" />}
+                        {coin.image && <Image src={coin.image} alt={coin.name} width={24} height={24} className="rounded-full" />}
                         <div>
                           <div className="font-medium">{coin.name}</div>
                           <div className="text-xs text-slate-600 font-medium">{coin.symbol}</div>

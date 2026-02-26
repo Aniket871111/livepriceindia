@@ -44,7 +44,7 @@ export default function PrivacyPage() {
           <h2 className="text-2xl font-bold text-slate-900">3. How We Use Your Information</h2>
           <ul>
             <li>To provide real-time price data relevant to your city</li>
-            <li>To send price alerts you've subscribed to</li>
+            <li>To send price alerts you&apos;ve subscribed to</li>
             <li>To improve our website content and user experience</li>
             <li>To display relevant advertisements via Google AdSense</li>
             <li>To analyze traffic patterns using Google Analytics</li>

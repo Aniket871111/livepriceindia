@@ -427,11 +427,11 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
     }
   }
 
-  // ── SOURCE 2: CricAPI v1 with new free key ──
-  // Sign up free at https://cricapi.com/ — 100 calls/day
-  const CRICAPI_KEY = process.env.CRICAPI_KEY || ''
-  if (CRICAPI_KEY) {
-    try {
+  // ── SOURCE 2: CricAPI v1 with free key ──
+  // Key: 012f54e0-9320-4ab2-8ad7-fa1161b34afc (free 100 calls/day from cricapi.com)
+  // Note: If "Subscription invalid", verify email at cricapi.com → account dashboard
+  const CRICAPI_KEY = process.env.CRICAPI_KEY || '012f54e0-9320-4ab2-8ad7-fa1161b34afc'
+  try {
       const res = await fetch(
         `https://api.cricapi.com/v1/currentMatches?apikey=${CRICAPI_KEY}&offset=0`,
         { cache: 'no-store', signal: AbortSignal.timeout(8000) }
@@ -472,7 +472,6 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
     } catch (err) {
       console.error('CricAPI error:', err)
     }
-  }
 
   // Try Cricbuzz scraping as backup
   try {

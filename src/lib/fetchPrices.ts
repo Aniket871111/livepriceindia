@@ -427,10 +427,8 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
     }
   }
 
-  // ── SOURCE 2: CricAPI v1 with free key ──
-  // Key: 012f54e0-9320-4ab2-8ad7-fa1161b34afc (free 100 calls/day from cricapi.com)
-  // Note: If "Subscription invalid", verify email at cricapi.com → account dashboard
-  const CRICAPI_KEY = process.env.CRICAPI_KEY || '012f54e0-9320-4ab2-8ad7-fa1161b34afc'
+  // ── SOURCE 2: CricAPI v1 — free 100 calls/day from cricapi.com ──
+  const CRICAPI_KEY = process.env.CRICAPI_KEY || 'f12f54e0-9320-4ab2-8ad7-fa1161b34afc'
   try {
       const res = await fetch(
         `https://api.cricapi.com/v1/currentMatches?apikey=${CRICAPI_KEY}&offset=0`,
@@ -444,15 +442,37 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
             const isCompleted = m.matchEnded
             const status = isLive ? 'live' : (isCompleted ? 'completed' : 'upcoming')
             const scoreArr = (m.score as Array<{ r: number; w: number; o: number; inning: string }>) || []
-            const t1 = (m.t1 as string) || (m.teams as string[])?.[0] || 'TBA'
-            const t2 = (m.t2 as string) || (m.teams as string[])?.[1] || 'TBA'
-            let t1Score = (m.t1s as string) || formatInningsScore(scoreArr, t1.split(' ')[0])
-            let t2Score = (m.t2s as string) || formatInningsScore(scoreArr, t2.split(' ')[0])
+
+            // Team names — CricAPI uses 'teams' array, t1/t2 may also be present
+            const teams = (m.teams as string[]) || []
+            const t1 = (m.t1 as string) || teams[0] || 'TBA'
+            const t2 = (m.t2 as string) || teams[1] || 'TBA'
+
+            // Score parsing: t1s/t2s are often empty — parse from score[] array instead
+            const buildScore = (teamName: string): string => {
+              const keyword = teamName.split(' ')[0] // first word e.g. "Limpopo", "Knights"
+              const innings = scoreArr.filter((s) =>
+                s.inning?.toLowerCase().includes(keyword.toLowerCase())
+              )
+              if (!innings.length) return ''
+              return innings.map((s) => `${s.r}/${s.w} (${s.o})`).join(' & ')
+            }
+
             const dateTime = formatMatchTime((m.dateTimeGMT as string) || '')
+            let t1Score = (m.t1s as string) || buildScore(t1)
+            let t2Score = (m.t2s as string) || buildScore(t2)
+
             if (status === 'upcoming') {
               t1Score = dateTime ? `Starts ${dateTime}` : 'Upcoming'
               t2Score = 'Yet to bat'
             }
+
+            // Series name from match name e.g. "India vs Australia, 1st ODI, Series Name 2026"
+            const nameParts = ((m.name as string) || '').split(', ')
+            const seriesName = nameParts.length >= 3
+              ? nameParts.slice(2).join(', ')
+              : nameParts[0] || 'Cricket Match'
+
             return {
               id: (m.id as string) || String(Math.random()),
               status,
@@ -462,7 +482,7 @@ export async function fetchCricketScores(): Promise<CricketMatch[]> {
               format: ((m.matchType as string) || 't20').toUpperCase(),
               venue: (m.venue as string) || '',
               result: (m.status as string) || '',
-              seriesName: (m.name as string)?.split(',')[0] || 'Cricket Match',
+              seriesName,
             }
           })
           setCache('cricket', matches)
